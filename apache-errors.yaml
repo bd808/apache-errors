@@ -1,0 +1,101 @@
+---
+- format: 'PHP: called %(func)s on null in %(file)s:%(line)s'
+  match:
+    message: PHP Fatal error:\s+Call to a member function (?P<func>[^
+      ]+) on a non-object in (?P<file>[^ ]+) on line (?P<line>\d+)
+- format: 'PHP: undefined %(type)s [%(idx)s] in %(file)s:%(line)s'
+  match:
+    message: 'PHP Fatal error:\s+(Uncaught \S*Exception:
+      )?Undefined (?P<type>[^:]+):\s+(?P<idx>\S+) in (?P<file>[^ ]+) on line (?P<line>\d+)'
+- format: 'PHP: OOM in %(file)s:%(line)s'
+  match:
+    message: PHP Fatal error:\s+Allowed memory size of \d+ bytes exhausted
+      [^)]+\) in (?P<file>[^ ]+) on line (?P<line>\d+)
+- format: 'PHP: canary mismatch in %(file)s:%(line)s'
+  match:
+    message: ALERT - canary mismatch on efree\(\) - heap overflow detected\s+\(attacker
+      '[^']+', file '(?P<file>[^\(]+)\((?P<line>\d+)\)
+- format: 'PHP: Script not found %(file)s'
+  match:
+    message: script '(?P<file>/[^']*)' not found or unable to stat
+- format: 'PHP: undefined %(func)s in %(file)s:%(line)s'
+  match:
+    message: 'PHP Fatal error:  Call to undefined function (?P<func>[^
+      ]+) in (?P<file>[^ ]+) on line (?P<line>\d+)'
+- format: 'PHP: Deserialization failure %(class)s'
+  match:
+    message: 'PHP Fatal error:  (?P<class>.*): The script tried to
+      execute a method or access a property of an incomplete object'
+- format: 'PHP: exception without stack frame'
+  match:
+    message: 'PHP Fatal error:  Exception thrown without a stack frame'
+- format: 'Apache: 404 %(file)s: ref=%(site)s'
+  match:
+    message: 'File does not exist: (?P<file>/[^,]*),
+      referer: https?://(?P<site>[^/]+)'
+- format: 'Apache: 404 %(file)s'
+  match:
+    message: 'File does not exist: (?P<file>/[^,]*)'
+- format: 'Apache: 403 %(file)s'
+  match:
+    message: (client denied by server configuration:|Directory index
+      forbidden by Options directive:) (?P<file>/[^,]*)$
+- format: 'Apache: Header read fail'
+  match:
+    message: 'request failed: error reading the headers'
+- format: 'Apache: URI too long'
+  match:
+    message: 'request failed: URI too long'
+- format: 'Apache: Invalid URI'
+  match:
+    message: 'Invalid URI in request '
+- format: 'Apache: Invalid URI'
+  match:
+    message: 'invalid request-URI '
+- format: 'Apache: Invalid method'
+  match:
+    message: Invalid method in request
+- format: 'Apache: Malformed %(hdr)s header'
+  match:
+    message: Client sent malformed (?P<hdr>\S+) header
+- format: 'Apache: cve-2009-3555 incompatible renegotation'
+  match:
+    message: rejecting client initiated renegotiation
+- format: 'Apache: renegotiation handshake failed'
+  match:
+    message: 'Re-negotiation handshake failed: Not accepted by client!\?'
+- format: 'Apache: SSL required %(file)s'
+  match:
+    message: 'access to (?P<file>/[^ ]*) failed, reason: SSL connection required'
+- format: 'Apache: File name too long'
+  match:
+    message: '\(36\)File name too long: access to .* failed'
+- format: 'Apache: Expired SSL Client Cert'
+  match:
+    message: 'Certificate Verification: Error \(10\): certificate has
+      expired'
+- format: 'Apache: HTTP/1.1 request without hostname'
+  match:
+    message: 'client sent HTTP/1.1 request without hostname'
+- format: 'ModSec: %(id)s - %(msg)s'
+  match:
+    message: 'ModSecurity: .*\[id "(?P<id>[^"]+)"\].*\[msg "(ModSecurity
+      )?(?P<msg>[^"]+)"\]'
+- format: 'ModSec: body read fail'
+  match:
+    message: 'ModSecurity: Error reading request body: (End of file
+      found|Connection reset by peer)'
+- format: 'ModSec: connection abort'
+  match:
+    message: 'ModSecurity: Output filter: Error while forwarding response
+      data \(103\): Software caused connection abort'
+- format: 'mod_ssl: SNI hostname, but no Host header'
+  match:
+    message: Hostname [\w\.]+ provided via SNI, but no hostname provided
+      in HTTP request
+- format: 'mod_ssl: Re-negotiation request failed'
+  match:
+    message: Re-negotiation request failed
+- format: 'mod_ssl: Unsafe legacy renegotiation'
+  match:
+    message: SSL Library Error:.*unsafe legacy renegotiation
